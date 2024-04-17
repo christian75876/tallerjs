@@ -1,4 +1,5 @@
-const list = [];
+try {
+  const list = [];
 const articles = [];
 
 const addArticle = (name, price) => {
@@ -68,3 +69,6 @@ if (aux > money) {
 }
 
 console.table(articles);
+} catch (error) {
+  console.error(error);
+}

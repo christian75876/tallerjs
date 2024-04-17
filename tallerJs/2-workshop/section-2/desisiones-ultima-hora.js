@@ -44,22 +44,37 @@ const articlesCount = (articles) => {
     return articles;
 }
 
-const addArticles = (option, aux,weightBag ,weight,spaceBag) => {
+const addArticles = (option, aux, weightBag, weight, spaceBag) => {
     while (option && weightBag < weight && spaceBag >= 0) {
         let article = parseInt(prompt('Escoge el numero del indice del aticulo que deseas agregar'));
         listArticles.push(aux[article]);
-        weightBag += aux[article].weight;
-        spaceBag -= aux[article].size;
+        weightBag = addingSubs(true, weightBag, aux[article].weight)
+        spaceBag = addingSubs(false, spaceBag, aux[article].size)  //----> Imperativa
+        // weightBag += aux[article].weight;
+        // spaceBag -= aux[article].size;  ----> Declarativa
         console.log(weightBag);
         option = confirm('Deseas agregar alguno de esto articulos?');
     }
-    if(weightBag > weight || spaceBag <= 0){
-        alert('As alcanzado el limite permitido');
+    if (weightBag > weight || spaceBag <= 0) {
+        alert('As alcanzado el limite permitido de la maleta');
     }
-
     return listArticles;
 }
 
+const fun = (aux) => {
+    console.table(aux);
+    let option = confirm('Deseas agregar alguno de esto articulos?');
+    let result = addArticles(option, aux, weightBag, weight, spaceBag);
+    alert(`Sus articulos agregados son: revise consola`)
+    console.table(listArticles);
+
+}
+
+function addingSubs(flag, accum, accumValue) {
+    return flag ? accum + accumValue : accum - accumValue
+}
+
+alert('Solo digitar numeros para evitar el cierre del programa ')
 
 let climate = parseInt(prompt('si el cima es soleado ingresa: 0\nsi el clima es con lluvia ingresa: 1 '));
 
@@ -70,19 +85,14 @@ let weight = parseInt(prompt('Ingresa cuanto el es peso permitido para la maleta
 
 if (climate === 0 && !isNaN(climate)) {
     let aux = articlesCount(articlesSum);
-    console.table(aux);
-    let option = confirm('Deseas agregar alguno de esto articulos?');
-    let result = addArticles(option, aux, weightBag, weight, spaceBag);
-    alert(`Sus articulos agregados son: revise consola`)
-    console.table(listArticles);
+    fun(aux);
 
 } if (climate === 1 && !isNaN(climate)) {
     aux = articlesCount(articlesRain);
-    option = confirm('Deseas agregar alguno de esto articulos?');
-    console.table(aux);
-    result = addArticles(option, aux, weightBag, weight, spaceBag);
-    alert(`Sus articulos agregados son: revise consola`)
-    console.table(listArticles);
+    fun(aux);
+} if (isNaN(climate) || isNaN(spaceBag) || isNaN(weightBag) || isNaN(weight)) {
+    alert('As ingresado un valor no valido se cierra el programa');
+    console.error('SE ROMPIO');
 }
 
 

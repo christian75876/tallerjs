@@ -35,15 +35,26 @@ while (want) {
   } else {
     alert("evite gastos adicionales para no sobrepasar su presupuesto.");
   } 
-  want = confirm('Desea seguir haciendo la listade posibles articulos?');
+  want = confirm('Desea seguir haciendo la lista de posibles articulos?');
  }
 
 
 console.log(`Los articulos que as decidido incluir son:`);
 console.table(list);
 
-// let max = Math.max(list.price);
-// let min = Math.min(list.price);
+let max = 0;
+let min = Infinity;
+
+list.forEach(value => {
+  if(value.price > max){
+    max = value.price;
+  }
+  if(value.price < min){
+    min = value.price;
+  }
+})
+
+alert(`Recuerda el articulo mas economico es de un precio de: $${min} y el mas caro es de un precio de:$${max}`)
 
 let aux = 0;
 let go = confirm("Quieres ingresar algun articulo de la anterior lista?");
